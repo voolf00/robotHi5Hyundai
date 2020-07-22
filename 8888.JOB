@@ -1,0 +1,59 @@
+Program File Format Version : 1.6  MechType: 114(HS165-02)  TotalAxis: 6  AuxAxis: 0
+     
+     
+     
+     
+     ENET1.IP="169.254.170.69"
+     ENET2.IP="169.254.170.15"
+     ENET1.LPORT=6700
+     ENET1.RPORT=6630
+     ENET2.LPORT=6700
+     ENET2.RPORT=6630
+     CLR_RBUF ENET1
+     CLR_RBUF ENET2
+     
+     ENET2.OPEN 1
+     ENET1.OPEN 1
+     INPUT ENET2, V5$, 0.1
+     'V6$=MID$(V5$,2,4)
+     V6$ = LEFT$(V5$,2)
+     
+     
+     
+     V11$=MID$(V5$,3,7)
+     V12$=MID$(V5$,10,7)
+     V13$=MID$(V5$,17,7)
+     V14$=MID$(V5$,24,7)
+     V15$=MID$(V5$,31,7)
+     V16$=MID$(V5$,38,7)
+     V17$=MID$(V5$,45,3)
+     V18$=MID$(V5$,48,1)
+     V11! = VAL(V11$)
+     V12! = VAL(V12$)
+     V13! = VAL(V13$)
+     V14! = VAL(V14$)
+     V15! = VAL(V15$)
+     V16! = VAL(V16$)
+     V17%=VAL(V17$)
+     V18%=VAL(V18$)
+     IF V6$="AP" THEN 
+S1   MOVE P,(V11! ,V12!,V13!,V14!,V15!,V16!)A,S=V17%%,A=V18%,T=0
+     ENDIF
+     PRINT ENET1, "0"
+     IF V6$="CP" THEN 
+S2   MOVE P,(V11! ,V12!,V13!,V14!,V15!,V16!, &H0001)R,S=V17%%,A=V18%,T=0
+     ENDIF
+     PRINT #0, V11$
+     'PRINT ENET2, V10$
+     'PRINT ENET1, V5$
+     PRINT ENET1, "1"
+     
+     'PRINT #0, V5$
+     ENET2.OPEN 0	
+     'DELAY 0.5
+     'PRINT ENET1
+     
+     END
+     
+     
+     
